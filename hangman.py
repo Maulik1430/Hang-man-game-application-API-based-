@@ -9,6 +9,7 @@ MAX_WRONG = 6
 
 def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
+    
 def word_lookup(length):
     url = "https://random-word-api.p.rapidapi.com/word"  # Base endpoint
     
@@ -18,20 +19,15 @@ def word_lookup(length):
         "x-rapidapi-key": "57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13",
         "x-rapidapi-host": "random-word-api.p.rapidapi.com"
     }
+    response = requests.get(url, headers=headers, params=querystring, timeout=10)
+    st.write(f"Status: {response.status_code}, Response: {response.text}")  # DEBUG
     
-    try:
-        response = requests.get(url, headers=headers, params=querystring, timeout=10)
-        st.write(f"Status: {response.status_code}, Response: {response.text}")  # DEBUG
-        
-        if response.status_code == 200:
-            data = response.json()
-            if isinstance(data, list):
-                return data[0].upper()
-            return str(data).upper()
-    except Exception as e:
-        st.error(f"Error: {e}")
-    
-    return "PYTHON"
+    if response.status_code == 200:
+        data = response.json()
+        if isinstance(data, list):
+            return data[0].upper()
+        return str(data).upper()
+   
 
 def start_game(length):
     st.session_state["word"] = word_lookup(length)
