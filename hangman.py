@@ -13,7 +13,7 @@ def word_lookup(length):
     url = "https://random-word-api.p.rapidapi.com/word"
     querystring = {"length": str(length)}
     headers = {
-        "x-rapidapi-key": st.secrets["RAPIDAPI_KEY"],
+        "x-rapidapi-key": st.secrets["57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13"],
         "x-rapidapi-host": "random-word-api.p.rapidapi.com"
     }
     try:
