@@ -114,7 +114,7 @@ if __name__ == "__main__":
             start_game(length)
             st.rerun()
 
-        return  # ⛔ stop here until game starts
+            return  # ⛔ stop here until game starts
 
     # 🎮 GAME STARTED
     word = st.session_state["word"]
