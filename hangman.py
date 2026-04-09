@@ -9,12 +9,12 @@ def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
 
 def word_lookup(length):
-    url = "https://random-word-api.p.rapidapi.com/word"
+    url = "https://dashboard.apiverve.com/playground?api=randomwords"
     querystring = {"length": str(length)}
     try:
         headers = {
-            "x-rapidapi-key": "57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13",
-            "x-rapidapi-host": "random-word-api.p.rapidapi.com"
+            "x-rapidapi-key": "apv_3a070045-7207-4afe-abe5-9d83d8b708ae",
+            "x-rapidapi-host": "https://api.apiverve.com/v1/randomquote"
         }
         response = requests.get(url, headers=headers, params=querystring, timeout=10)
         if response.status_code == 200:
