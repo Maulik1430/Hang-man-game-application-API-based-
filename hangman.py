@@ -9,8 +9,9 @@ MAX_WRONG = 6
 
 def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
+    
 def word_lookup(length):
-    url = f"https://random-word-api.p.rapidapi.com/LS/0/%7Bstart%7D"
+    url = f"https://random-word-api.p.rapidapi.com/LS/20/%7Bstart%7D"
 
     headers = {
         "X-RapidAPI-Key": "57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13",  
