@@ -11,21 +11,35 @@ def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
     
 def word_lookup(length):
-    url = f"https://random-word-api.p.rapidapi.com/LS/20/%7Bstart%7D"
-
+    """Fetch a random word of specified length from RapidAPI."""
+    url = f"https://random-word-api.p.rapidapi.com/LS/{length}/1"  
+    
     headers = {
-        "X-RapidAPI-Key": "57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13",  
-        "X-RapidAPI-Host": "random-word-api.p.rapidapi.com"
+        "Content-Type": "application/json",  
+        "x-rapidapi-host": "random-word-api.p.rapidapi.com",  
+        "x-rapidapi-key": "57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13"
     }
-
+    
     try:
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            return response.json()[0].upper()
-    except:
-        pass
-
-    return "ERROR"
+        response = requests.get(url, headers=headers, timeout=10)  
+        response.raise_for_status()  
+        
+        data = response.json()
+        
+        if isinstance(data, list) and len(data) > 0:
+            return data[0].upper()
+        elif isinstance(data, dict) and 'word' in data:
+            return data['word'].upper()
+        else:
+            print(f"Unexpected API response: {data}")
+            return "PYTHON"  
+            
+    except requests.exceptions.RequestException as e:
+        print(f"API Error: {e}")
+        return "PYTHON"  
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return "PYTHON"  
 
 def start_game(length):
     st.session_state["word"] = word_lookup(length)
