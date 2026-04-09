@@ -9,19 +9,22 @@ MAX_WRONG = 6
 
 def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
-
 def word_lookup(length):
+    url = f"https://random-word-api.p.rapidapi.com/L/{length}"
+
+    headers = {
+        "X-RapidAPI-Key": "57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13",  
+        "X-RapidAPI-Host": "https://random-word-api.p.rapidapi.com/LS/0/%7Bstart%7D
+"
+    }
+
     try:
-        url = f"https://random-word-api.vercel.app/api?words=50&t={time.time()}"
-        res = requests.get(url)
-        if res.status_code == 200:
-            words = res.json()
-            filtered = [w.upper() for w in words if len(w) == length]
-            if filtered:
-                return random.choice(filtered)
-            return random.choice(words).upper()
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()[0].upper()
     except:
         pass
+
     return "ERROR"
 
 def start_game(length):
