@@ -11,8 +11,6 @@
 
 [🎮 Play Live Demo](https://ferwwg5p3vfqmzjy72lldc.streamlit.app/) • [Features](#-features) • [Installation](#-installation) • [How to Play](#-how-to-play)
 
-![Hangman Preview](https://raw.githubusercontent.com/Maulik1430/Hang-man-game-application-API-based-/main/hangman_0.png)
-
 </div>
 
 ---
