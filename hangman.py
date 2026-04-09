@@ -5,7 +5,7 @@ import random
 
 BASE_IMG_URL = "https://raw.githubusercontent.com/Maulik1430/Hang-man-game-application-API-based-/main"
 MAX_WRONG = 6
-
+RAPIDAPI_KEY = 57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13
 def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
 
@@ -14,7 +14,7 @@ def word_lookup(length):
     querystring = {"length": str(length)}
     try:
         headers = {
-            "x-rapidapi-key": st.secrets["57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13"],
+            "x-rapidapi-key": st.secrets["RAPIDAPI_KEY"],
             "x-rapidapi-host": "random-word-api.p.rapidapi.com"
         }
         response = requests.get(url, headers=headers, params=querystring, timeout=10)
