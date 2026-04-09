@@ -16,15 +16,12 @@ def word_lookup(length):
         'x-rapidapi-key': '57a7579205msh50b912bf08c80b6p18afbdjsn6fe74ac1ff13',
         'x-rapidapi-host': 'random-word-api.p.rapidapi.com'
     }
-    try:
-        response = requests.get(url, headers=headers, params=querystring, timeout=10)
-        if response.status_code == 200:
-            data = response.json()
-            if isinstance(data, list) and len(data) > 0:
-                return data[0].upper()
-    except:
-        pass
-    return random.choice(["APPLE", "TRAIN", "HOUSE", "PLANT", "WATER"])
+
+    response = requests.get(url, headers=headers, params=querystring, timeout=10)
+    if response.status_code == 200:
+        data = response.json()
+        if isinstance(data, list) and len(data) > 0:
+            return data[0].upper()
 
 def start_game(length):
     st.session_state["word"] = word_lookup(length)
