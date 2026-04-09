@@ -9,18 +9,19 @@ def get_image_url(wrong_count):
     return f"{BASE_IMG_URL}/hangman_{wrong_count}.png"
 
 def word_lookup(length):
-    url = "https://dashboard.apiverve.com/playground?api=randomwords"
-    querystring = {"length": str(length)}
+    url = "https://api.apiverve.com/v1/randomquote"
+    headers = {
+        "x-api-key": "apv_3a070045-7207-4afe-abe5-9d83d8b708ae",
+        "Content-Type": "application/json"
+    }
     try:
-        headers = {
-            "x-rapidapi-key": "apv_3a070045-7207-4afe-abe5-9d83d8b708ae",
-            "x-rapidapi-host": "https://api.apiverve.com/v1/randomquote"
-        }
-        response = requests.get(url, headers=headers, params=querystring, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code == 200:
             data = response.json()
-            if isinstance(data, list) and len(data) > 0:
-                return data[0].upper()
+            quote = data.get("data", {}).get("quote", "")
+            word = "".join([c for c in quote if c.isalpha()])
+            if len(word) >= length:
+                return word[:length].upper()
     except:
         pass
     return random.choice(["APPLE", "TRAIN", "HOUSE", "PLANT", "WATER"])
