@@ -21,7 +21,7 @@
 
 ### 🌟 What Makes It Special?
 
-- **🎲 Dynamic Word Generation** - Fresh random words via API, never the same game twice
+- **🎲 Dynamic Word Generation** - Fresh random words via API (apiverve), never the same game twice
 - **🎚️ Adjustable Difficulty** - Choose word length from 3 to 9 letters
 - **🎨 Custom Visual Feedback** - Hand-crafted hangman illustrations for each stage
 - **⚡ Real-time Updates** - Instant letter validation and game state management
@@ -40,7 +40,7 @@
 - **Instant Reset**: Start a new game anytime with one click
 
 ### 🛠️ Technical Features
-- **API Integration**: Real-time word fetching from `random-word-api.vercel.app`
+- **API Integration**: Real-time word fetching from `api.apiverve.com/v1/randomwords`
 - **Session State Management**: Persistent game state across interactions
 - **Clean UI/UX**: Minimalist design focused on gameplay
 - **Error Handling**: Graceful degradation if images fail to load
@@ -160,9 +160,15 @@ Hang-man-game-application-API-based-/
 
 ```python
 def word_lookup(length):
-    url = f"https://random-word-api.vercel.app/api?words=1&type=uppercase&length={length}"
-    res = requests.get(url)
-    return res.json()[0]
+    url = "https://api.apiverve.com/v1/randomwords"
+    headers = {
+        "x-api-key": "YOUR_API_KEY",
+        "Content-Type": "application/json"
+    }
+    params = {"words": 1}
+    res = requests.get(url, headers=headers, params=params)
+    data = res.json()
+    return data["data"][0].upper()
 ```
 
 **API Endpoint:** `random-word-api.vercel.app`
@@ -328,7 +334,8 @@ A: Currently, no. But you could implement this using Streamlit's `st.experimenta
 
 ## 🌟 Acknowledgments
 
-- **Random Word API** - [random-word-api.vercel.app](https://random-word-api.vercel.app/) for providing free random words
+- **Random Words API** - [api.apiverve.com](https://api.apiverve.com/v1/randomwords) for providing dynamic random words
+ for providing free random words
 - **Streamlit** - For the amazing framework that makes building web apps effortless
 - **Custom Artwork** - All hangman illustrations designed and created by **Maulik**
 - **Classic Game Inspiration** - The timeless word game that has entertained generations
